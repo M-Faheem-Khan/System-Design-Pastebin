@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  mongodb:
+    image: mongo
+    container_name: pastebin-mongodb
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: pastebin_mongo_password
+    ports:
+      - '27017:27017'
+
+# EOF
