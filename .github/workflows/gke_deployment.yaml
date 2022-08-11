@@ -56,7 +56,7 @@ jobs:
 
     # Push the Docker images to Google Container Registry
     - name: Publish-Pastebin-Api
-      run: docker push "gcr.io/$PROJECT_ID/$PASTEBIN_API_IMAGE:$GITHUB_SHA"
+      run: docker push "gcr.io/$PROJECT_ID/$PASTEBIN_API_IMAGE:latest"
 
     - name: Publish-Pastebin-Cleanup-Service
-      run: docker push "gcr.io/$PROJECT_ID/$PASTEBIN_CLEANUP_SERVICE_IMAGE:$GITHUB_SHA"
+      run: docker push "gcr.io/$PROJECT_ID/$PASTEBIN_CLEANUP_SERVICE_IMAGE:latest"
