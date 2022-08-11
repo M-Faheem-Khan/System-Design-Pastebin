@@ -10,7 +10,7 @@ env:
   GKE_CLUSTER: pastebin-api-cluster    # Add your cluster name here.
   GKE_ZONE: us-central1-a   # Add your cluster zone here.
   DEPLOYMENT_NAME: gke-test # Add your deployment name here.
-  IMAGE: pastebin-api:latest
+  IMAGE: pastebin-api
 
 jobs:
   setup-build-publish-deploy:
