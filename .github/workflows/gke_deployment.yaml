@@ -45,12 +45,12 @@ jobs:
     # Build the Docker images
     - name: Build-pastebin-api
       run: |-
-        docker build --tag "gcr.io/$PROJECT_ID/$PASTEBIN_API_IMAGE:$GITHUB_SHA" --build-arg GITHUB_SHA="$GITHUB_SHA" \
+        docker build --tag "gcr.io/$PROJECT_ID/$PASTEBIN_API_IMAGE:latest" --build-arg GITHUB_SHA="$GITHUB_SHA" \
           --build-arg GITHUB_REF="$GITHUB_REF" ./api/
           
     - name: Build-pastebin-cleanup-service
       run: |-
-        docker build --tag "gcr.io/$PROJECT_ID/$PASTEBIN_CLEANUP_SERVICE_IMAGE:$GITHUB_SHA" --build-arg GITHUB_SHA="$GITHUB_SHA" \
+        docker build --tag "gcr.io/$PROJECT_ID/$PASTEBIN_CLEANUP_SERVICE_IMAGE:latest" --build-arg GITHUB_SHA="$GITHUB_SHA" \
           --build-arg GITHUB_REF="$GITHUB_REF" ./post-cleanup-service/  
 
 
