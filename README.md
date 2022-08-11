@@ -1,5 +1,7 @@
 # System Design Pastebin
 
+![Action: Build & Deploy to GKE](https://github.com/M-Faheem-Khan/System-Design-Pastebin/actions/workflows/gke_deployment.yaml/badge.svg)
+
 Pastebin implementation for the [System Design Primer](https://github.com/donnemartin/system-design-primer/tree/master/solutions/system_design/pastebin) by [donnemartin](https://github.com/donnemartin). I choose Nodejs & Mongodb as programming languages of choice and database. Kubernetes is my choice of software for deploying.
 
 ### Use cases
