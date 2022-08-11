@@ -10,7 +10,8 @@ env:
   GKE_CLUSTER: pastebin-api-cluster    # Add your cluster name here.
   GKE_ZONE: us-central1-a   # Add your cluster zone here.
   DEPLOYMENT_NAME: gke-test # Add your deployment name here.
-  IMAGE: pastebin-api
+  PASTEBIN_API_IMAGE: pastebin-api
+  PASTEBIN_CLEANUP_SERVICE_IMAGE: pastebin-api
 
 jobs:
   setup-build-publish-deploy:
@@ -40,27 +41,22 @@ jobs:
         location: ${{ env.GKE_ZONE }}
         credentials: ${{ secrets.GKE_SA_KEY }}
 
-    # Build the Docker image
+
+    # Build the Docker images
     - name: Build-pastebin-api
       run: |-
-        docker build --tag "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA" --build-arg GITHUB_SHA="$GITHUB_SHA" \
+        docker build --tag "gcr.io/$PROJECT_ID/$PASTEBIN_API_IMAGE:$GITHUB_SHA" --build-arg GITHUB_SHA="$GITHUB_SHA" \
           --build-arg GITHUB_REF="$GITHUB_REF" ./api/
           
     - name: Build-pastebin-cleanup-service
       run: |-
-        docker build --tag "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA" --build-arg GITHUB_SHA="$GITHUB_SHA" \
+        docker build --tag "gcr.io/$PROJECT_ID/$PASTEBIN_CLEANUP_SERVICE_IMAGE:$GITHUB_SHA" --build-arg GITHUB_SHA="$GITHUB_SHA" \
           --build-arg GITHUB_REF="$GITHUB_REF" ./post-cleanup-service/  
 
-    # Push the Docker image to Google Container Registry
-    - name: Publish
-      run: |-
-        docker push "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA"
 
+    # Push the Docker images to Google Container Registry
+    - name: Publish-Pastebin-Api
+      run: docker push "gcr.io/$PROJECT_ID/$PASTEBIN_API_IMAGE:$GITHUB_SHA"
 
-#     # Deploy the Docker image to the GKE cluster
-#     - name: Deploy
-#       run: |-
-#         ./kustomize edit set image gcr.io/PROJECT_ID/IMAGE:TAG=gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA
-#         ./kustomize build ./$IMAGE/Dockerfile | kubectl apply -f -
-#         kubectl rollout status deployment/$DEPLOYMENT_NAME
-#         kubectl get services -o wide
+    - name: Publish-Pastebin-Cleanup-Service
+      run: docker push "gcr.io/$PROJECT_ID/$PASTEBIN_CLEANUP_SERVICE_IMAGE:$GITHUB_SHA"
