@@ -18,7 +18,7 @@ PostRouter.get('/:uri/', async (req, res) => {
     const post_is_expired = await isExpired(uri);
     if (post_is_expired) {
         // delete post from expiredPost & Post
-        await expirePost.deleteOne({ 'uri': uri });
+        await expiredPost.deleteOne({ 'uri': uri });
         await Post.deleteOne({ 'uri': uri });
         return res.status(404).send({
             'error': 'Expired Post'
@@ -108,17 +108,19 @@ const isExpired = async (uri) => {
 
 const updateVisitCounter = async (uri) => {
     const p = await Post.findOne({ 'uri': uri });
-    const current_month = new Date().getMonth();
-    if (p.lastUpdated.getMonth() != current_month) {
-        p.visits = 1;
-    } else {
-        p.visits += 1
-    }
-    p.lastUpdated = new Date();
-    await p.save()
+    if (p) {
+        const current_month = new Date().getMonth();
+        if (new Date(p.lastUpdated).getMonth() != current_month) {
+            p.visits = 1;
+        } else {
+            p.visits += 1
+        }
+        p.lastUpdated = new Date();
+        await p.save()
 
-    // const post = await Post.findOneAndUpdate({ 'uri': uri }, { '$inc': { 'visits': 1 } })
-    console.log(`${uri} has ${p.visits} visits`)
+        // const post = await Post.findOneAndUpdate({ 'uri': uri }, { '$inc': { 'visits': 1 } })
+        console.log(`${uri} has ${p.visits} visits`)
+    }
 }
 
 module.exports = PostRouter;

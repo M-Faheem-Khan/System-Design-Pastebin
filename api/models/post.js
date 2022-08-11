@@ -20,7 +20,7 @@ const postSchema = new mongoose.Schema({
     },
     visits: {
         type: Number,
-        default: 1,
+        default: 0,
         required: true
     },
     lastUpdated: {
