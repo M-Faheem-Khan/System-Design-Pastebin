@@ -11,7 +11,7 @@ env:
   GKE_ZONE: us-central1-a   # Add your cluster zone here.
   DEPLOYMENT_NAME: gke-test # Add your deployment name here.
   PASTEBIN_API_IMAGE: pastebin-api
-  PASTEBIN_CLEANUP_SERVICE_IMAGE: pastebin-api
+  PASTEBIN_CLEANUP_SERVICE_IMAGE: pastebin-cleanup-service
 
 jobs:
   setup-build-publish-deploy:
