@@ -47,6 +47,8 @@ PostRouter.get('/:uri/', async (req, res) => {
 
 // POST /post/
 PostRouter.post('/', async (req, res) => {
+    console.log(req.body);
+    
     let title = req.body.title;
     let message = req.body.message;
     let expiresIn = req.body.expiresIn === undefined ? 0 : req.body.expiresIn;
