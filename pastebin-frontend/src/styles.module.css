@@ -1,0 +1,31 @@
+.center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.formInput {
+    height: 20px;
+    width: 220px;
+    padding: 7px;
+}
+
+.textAreaInput {
+    padding: 7px;
+    width: 220px;
+}
+
+.inputBorder {
+    margin-top: 7px;
+    border: 1px solid black;
+}
+
+.btn {
+    margin-top: 7px;
+    width: 150px;
+    height: 30px;
+    border: 1px solid black
+}
+
+/* EOF */
